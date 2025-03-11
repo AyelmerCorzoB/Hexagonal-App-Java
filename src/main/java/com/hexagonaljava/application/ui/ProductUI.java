@@ -2,7 +2,8 @@ package com.hexagonaljava.application.ui;
 
 import java.util.Scanner;
 
-import com.hexagonaljava.application.usecase.product.ProductUseCase;
+import com.hexagonaljava.application.usecase.problems.*;
+import com.hexagonaljava.application.usecase.product.*;
 
 public class ProductUI {
     public static void manejarMenuProductos(Scanner sc, ProductUseCase productCasoUso) {
@@ -18,46 +19,30 @@ public class ProductUI {
                     6. Salir...
                     Seleccione una opción:""";
             System.out.print(menuProducts);
+
+            ValidacionInt.validar(sc);
             opcionProducts = sc.nextInt();
             sc.nextLine();
 
             switch (opcionProducts) {
                 case 1:
-                    System.out.print("Ingrese ID del Producto: ");
-                    int idRegistroP = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("Ingrese Nombre: ");
-                    String nombre = sc.nextLine();
-                    System.out.print("Ingrese la cantidad: ");
-                    int stock = sc.nextInt();
-                    sc.nextLine();
-                    productCasoUso.registrarproducto(idRegistroP, nombre, stock);
-                    System.out.println("✅ Producto registrado exitosamente.");
+                    registrarProducto registrarProducto = new registrarProducto();
+                    registrarProducto.registrar(sc, productCasoUso);
                     break;
                 case 2:
-                    System.out.print("Ingresa el ID del producto a buscar: ");
-                    int idBusqueda = sc.nextInt();
-                    sc.nextLine();
-                    productCasoUso.obtenerproducto(idBusqueda);
+                    BuscarProducto buscarProducto = new BuscarProducto();
+                    buscarProducto.buscar(sc, productCasoUso);
                     break;
                 case 3:
                     productCasoUso.listarproductos();
                     break;
                 case 4:
-                    System.out.print("Ingresa el ID del producto que quieres actualizar: ");
-                    int idActualizar = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("Ingrese el nuevo nombre: ");
-                    String nuevoNombre = sc.nextLine();
-                    System.out.print("Ingresa el nuevo precio: ");
-                    int nuevoStock = sc.nextInt();
-                    sc.nextLine();
-                    productCasoUso.actualizarproducto(idActualizar, nuevoNombre, nuevoStock);
+                    ActualizarProducto actualizarProducto = new ActualizarProducto();
+                    actualizarProducto.actualizar(sc, productCasoUso);
                     break;
                 case 5:
-                    System.out.print("Ingresa el ID del producto que quieres eliminar: ");
-                    int idEliminar = sc.nextInt();
-                    productCasoUso.eliminarproducto(idEliminar);
+                    EliminarProducto eliminarProducto = new EliminarProducto();
+                    eliminarProducto.eliminar(sc, productCasoUso);
                     break;
                 case 6:
                     System.out.println("Saliendo....");

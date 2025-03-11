@@ -6,6 +6,7 @@ import com.hexagonaljava.application.ui.ClientUI;
 import com.hexagonaljava.application.ui.MenuPrincipal;
 import com.hexagonaljava.application.ui.ProductUI;
 import com.hexagonaljava.application.usecase.client.ClientUseCase;
+import com.hexagonaljava.application.usecase.problems.ValidacionInt;
 import com.hexagonaljava.application.usecase.product.ProductUseCase;
 import com.hexagonaljava.domain.repository.ClientRespository;
 import com.hexagonaljava.domain.repository.ProductRepository;
@@ -24,9 +25,12 @@ public class Main {
             int opcionMenu;
             do {
                 MenuPrincipal.mostrarMenuPrincipal();
+                
+                ValidacionInt.validar(sc);
+                
                 opcionMenu = sc.nextInt();
-                sc.nextLine();
-
+                
+                sc.nextLine(); 
                 switch (opcionMenu) {
                     case 1:
                         ClientUI.manejarMenuClientes(sc, clienteCasoUso);
@@ -42,8 +46,6 @@ public class Main {
                         break;
                 }
             } while (opcionMenu != 3);
-        }
+        } 
     }
-
-
-    }
+}
